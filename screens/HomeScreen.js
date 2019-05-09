@@ -8,14 +8,52 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import { WebBrowser, Notifications } from 'expo';
+import { NavigationActions } from 'react-navigation';
+
 
 import { MonoText } from '../components/StyledText';
+
+import registerForPushNotificationsAsync from '../helperFunctions/registerForPushNotificationsAsync';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  componentDidMount() {
+    registerForPushNotificationsAsync();
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+    //console.log(notification);
+    if(notification.origin === 'selected')
+      //console.log(notification.data);
+      if( notification.data.link ){
+        //console.log(notification.data.link)
+        this.navigate(notification.data.link);
+      }
+  };
+
+  navigate = (link) => {
+    const { navigate } = this.props.navigation;
+    const routeName = link.split('/');
+    //console.log(routeName[0]);
+    if (routeName[0] === 'home')
+      navigate('HomeStack',{} )      
+    else if (routeName[0] === 'link') {routeName[1]
+      //console.log(routeName);
+      if(routeName[1] === 'test1'){
+        console.log("asdasd");
+        this.props.navigation.navigate('LinksStack',{},NavigationActions.navigate({ routeName: 'Test1' }))
+      } else if(routeName[1] === 'test2'){
+        this.props.navigation.navigate('LinksStack',{},NavigationActions.navigate({ routeName: 'Test2' }))
+      } else
+        this.props.navigation.navigate('LinksStack',{} )
+    } else if (routeName[0] === 'setting')
+      this.props.navigation.navigate('SettingsStack',{} );
+  }
 
   render() {
     return (

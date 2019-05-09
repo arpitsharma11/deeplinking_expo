@@ -1,12 +1,41 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
+import { AppLoading, Asset, Font, Icon, Notifications } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+
+import registerForPushNotificationsAsync from './helperFunctions/registerForPushNotificationsAsync';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
   };
+
+  componentDidMount() {
+    //registerForPushNotificationsAsync();
+    //this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+    //console.log(notification);
+    if(notification.origin === 'selected')
+      //console.log(notification.data);
+      if( notification.data.link ){
+        //console.log(notification.data.link)
+        this.navigate(notification.data.link);
+      }
+  };
+
+  navigate = (link) => {
+    //const { navigate } = this.props.navigation;
+    const route = link.replace(/.*?:\/\//g, '');
+    const routeName = route.split('/')[1];
+    console.log(route);
+    /*if (routeName === 'profile') {
+      navigate('ProfileNav',{} )      
+    } else if (routeName === 'setting') {
+      navigate('Setting',{} )
+    } ;*/
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {

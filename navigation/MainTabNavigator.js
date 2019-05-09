@@ -30,7 +30,10 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createBottomTabNavigator({
-  Links: LinksScreen,
+  Links: {
+    screen: LinksScreen,
+    path: ''
+  },
   Test1: {
     screen: Test1,
     path: 'test1'

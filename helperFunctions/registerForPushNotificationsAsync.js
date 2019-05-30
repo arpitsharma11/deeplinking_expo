@@ -20,7 +20,7 @@ export default async function registerForPushNotificationsAsync() {
 
     let token = await Notifications.getExpoPushTokenAsync();
 
-    alert(token);
+    //alert(token);
     //return true;
   
     return fetch(PUSH_ENDPOINT, {

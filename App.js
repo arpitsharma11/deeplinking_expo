@@ -29,7 +29,7 @@ export default class App extends React.Component {
     //const { navigate } = this.props.navigation;
     const route = link.replace(/.*?:\/\//g, '');
     const routeName = route.split('/')[1];
-    console.log(route);
+    //console.log(route);
     /*if (routeName === 'profile') {
       navigate('ProfileNav',{} )      
     } else if (routeName === 'setting') {

@@ -1,22 +1,41 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import React, {Component} from 'react';
+import { Dimensions, Button, ImageBackground, TouchableOpacity, Text, View, Image } from 'react-native';
+import { Asset } from 'expo';
+import { ImageManipulator } from 'expo-image-crop'
 
-class Test1 extends Component{
-    render(){
-        return(
-            <View style={styles.container} >
-                <Text>
-                    Test Screen 1
-                </Text>
-            </View>
-        )
-    }
+
+
+class Test1 extends Component {
+  state = {
+    isVisible: false,
+    uri: 'https://i.pinimg.com/originals/39/42/a1/3942a180299d5b9587c2aa8e09d91ecf.jpg',
+}
+onToggleModal = () => {
+    const { isVisible } = this.state
+    this.setState({ isVisible: !isVisible })
 }
 
-const styles = StyleSheet.create({
-    container: {
-      paddingTop: 40,
-    }
-});
+  render() {
+    const { uri, isVisible } = this.state
+    const { width, height } = Dimensions.get('window')
+    return (
+        <ImageBackground
+            resizeMode="contain"
+            style={{
+                justifyContent: 'center', padding: 20, alignItems: 'center', height, width, backgroundColor: 'black',
+            }}
+            source={{ uri }}
+        >
+            <Button title="Open Image Editor" onPress={() => this.setState({ isVisible: true })} />
+            <ImageManipulator
+                photo={{ uri }}
+                isVisible={isVisible}
+                onPictureChoosed={uriM => this.setState({ uri: uriM })}
+                onToggleModal={this.onToggleModal}
+            />
+        </ImageBackground>
+    )
+  }
+}
 
 export default Test1;

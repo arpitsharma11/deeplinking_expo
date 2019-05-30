@@ -8,6 +8,9 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import Test1 from '../screens/Test1';
 import Test2 from '../screens/Test2';
+import CameraExample from '../screens/Camera';
+import CropView from '../screens/CropView';
+import ExampleComponent from '../screens/ExampleComponent';
 
 const HomeStack = createStackNavigator({
   Home: {
@@ -34,13 +37,9 @@ const LinksStack = createBottomTabNavigator({
     screen: LinksScreen,
     path: ''
   },
-  Test1: {
-    screen: Test1,
-    path: 'test1'
-  },
   Test2: {
-    screen: Test2,
-    path: 'test2'
+    screen: CameraExample,
+    path: 'camera'
   }
 });
 

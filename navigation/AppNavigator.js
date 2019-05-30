@@ -13,7 +13,7 @@ const MainApp = createAppContainer(createSwitchNavigator({
 const prefix = Expo.Linking.makeUrl('/');
 
 //console.log(prefix)
-alert(prefix);
+//alert(prefix);
 
 const AppNavigator = () => <MainApp uriPrefix={prefix} />;
 
